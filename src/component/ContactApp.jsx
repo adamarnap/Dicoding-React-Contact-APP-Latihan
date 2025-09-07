@@ -2,8 +2,9 @@
 import React from "react";
 // Import Data
 import { getData } from "../utils/data";
-// Import Components
+// Import Child Components
 import ContactList from "./ContactList";
+import ContactInput from "./form/ContactInput";
 
 // Class Component Contact App
 class ContactApp extends React.Component {
@@ -15,6 +16,7 @@ class ContactApp extends React.Component {
         };
 
         this.onDeleteHandler = this.onDeleteHandler.bind(this);
+        this.onAddContactHandler = this.onAddContactHandler.bind(this);
     }
 
     // Method to handle delete contact
@@ -23,11 +25,31 @@ class ContactApp extends React.Component {
         this.setState({ contacts });
     }
 
+    // Method to handle add contact
+    onAddContactHandler({ name, tag}) {
+        this.setState((prevState) => {
+            return {
+                contacts: [
+                    ...prevState.contacts,
+                    {
+                        id: +new Date(),
+                        name,
+                        tag,
+                        imageUrl: "/images/default.jpg",
+                    }
+                ]
+            }
+        })
+    }
+
     // Render method
     render() {
         return (
             <div className="contact-app">
                 <h1>Contact List</h1>
+                {/* Input Contact Form */}
+                <ContactInput addContact={this.onAddContactHandler} addContact2="herhe" />
+                {/* Contact List */}
                 <ContactList contacts={this.state.contacts} onDelete={this.onDeleteHandler} />
             </div>
         );
