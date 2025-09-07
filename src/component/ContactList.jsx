@@ -3,12 +3,12 @@ import React from "react";
 import ContactItem  from "./ContactItem";
 
 // Component Contact List
-function ContactList({ contacts }) {
+function ContactList({ contacts, onDelete }) {
     return (
         <div className="contact-list">
             {
                 contacts.map((contact) => (
-                    <ContactItem key={contact.id} {...contact} />
+                    <ContactItem key={contact.id} onDelete={onDelete} {...contact} />
                 ))
             }
         </div>
